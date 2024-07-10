@@ -17,7 +17,7 @@ const getProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     const id = req.params.id
     const fileName = req.file?.filename
-    const result = await productModel.findByIdAndUpdate(id, { ...req.body, image: fileName ? filename : req.body.image })
+    const result = await productModel.findByIdAndUpdate(id, { ...req.body, image: fileName ? fileName : req.body.image })
     if (result.save()) {
         res.send({ success: true, message: "Updated successfully", data: result })
     } else {

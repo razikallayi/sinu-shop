@@ -64,7 +64,7 @@ export const EditProduct = () => {
                 toast(response.data.message)
             }
         }).catch(e=>{
-            if(e.response.data.message == 'jwt expired'){
+            if(e.response?.data?.message == 'jwt expired'){
                 logout()
             }else{
                 toast(e.response.data.message)
