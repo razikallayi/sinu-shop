@@ -18,16 +18,12 @@ export const CreateProduct = () => {
     const [price, setPrice] = useState()
     const [type, setType] = useState()
     const [image, setImage] = useState()
-    const { user } = useAdmin()
+    const { isLoggedIn } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
-
-    // useEffect(() => {
-    //     getProduct(id)
-    // }, [])
 
 
     // const getProduct = (id) => {

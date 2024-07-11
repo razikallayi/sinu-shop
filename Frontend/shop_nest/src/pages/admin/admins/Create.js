@@ -10,11 +10,11 @@ import { useAdmin } from 'hooks/useAdmin';
 
 
 export const CreateAdmin = () => {
-    const { user } = useAdmin()
+    const { isLoggedIn } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
 
     const [name, setName] = useState()

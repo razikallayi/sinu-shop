@@ -18,11 +18,11 @@ export const EditProduct = () => {
     const [price, setPrice] = useState()
     const [type, setType] = useState()
     const [image, setImage] = useState()
-    const { user , logout} = useAdmin()
+    const { isLoggedIn,logout } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
 
     useEffect(() => {

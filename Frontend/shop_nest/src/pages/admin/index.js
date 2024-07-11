@@ -9,11 +9,11 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const AdminDashboard = () => {
-    const { user } = useAdmin()
+    const { isLoggedIn } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
 
     return (

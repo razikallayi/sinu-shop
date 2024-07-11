@@ -36,10 +36,23 @@ export const useAdmin = () => {
     setAdmin(decodeToken)
   }
 
+  const isLoggedIn = () => {
+    if(!admin) return false
+    const FifteenMinutes = 900
+    const tokenExpiryTime = (Date.now() + FifteenMinutes)/1000
+    if(admin?.exp <= tokenExpiryTime){
+      logout()
+      return false
+    }else{
+      return true
+    }
+  }
+
   const logout = () => {
     localStorage.removeItem(ACCESS_TOKEN)
     removeUser();
+    navigate('/admin')
   };
 
-  return { login, logout, user: admin };
+  return { login, logout, isLoggedIn, user: admin };
 };

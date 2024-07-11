@@ -13,12 +13,13 @@ import { toast } from 'react-toastify';
 import { authHeader } from 'utils/auth';
 import { AdminNavbar } from '../AdminNavbar';
 export const Products = () => {
-    const { user, logout } = useAdmin()
+    const { isLoggedIn,logout } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
+
     const [products, setProducts] = useState()
     useEffect(() => {
         getProducts()

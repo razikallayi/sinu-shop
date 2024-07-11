@@ -9,11 +9,11 @@ import { AdminNavbar } from '../AdminNavbar';
 
 
 export const Users = () => {
-    const { user } = useAdmin()
+    const { isLoggedIn } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/user')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
 
     const [users, setUsers] = useState()
