@@ -1,15 +1,11 @@
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import productSample from "assets/product_0.jpg";
 import axios from 'axios';
 import { useAdmin } from 'hooks/useAdmin';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authHeader } from 'utils/auth';
+import { AdminNavbar } from '../AdminNavbar';
 
 
 export const Users = () => {
@@ -44,9 +40,10 @@ export const Users = () => {
 
     return (
         <>
+        <AdminNavbar/>
             <Grid container direction="row" justifyContent="center" sx={{ my: 4 }}>
                 <Grid item><Typography variant='h5'>Users</Typography></Grid>
-                <Grid item ><Button sx={{ mx: 4 }} variant='contained' onClick={() => navigate('/user/create')}>ADD</Button></Grid>
+                {/* <Grid item ><Button sx={{ mx: 4 }} variant='contained' onClick={() => navigate('/user/create')}>ADD</Button></Grid> */}
             </Grid>
 
             <TableContainer component={Paper}>

@@ -10,6 +10,7 @@ import { useAdmin } from 'hooks/useAdmin';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authHeader, getToken } from 'utils/auth';
+import { AdminNavbar } from '../AdminNavbar';
 
 
 export const Admins = () => {
@@ -44,6 +45,7 @@ export const Admins = () => {
 
     return (
         <>
+        <AdminNavbar/>
             <Grid container direction="row" justifyContent="center" sx={{ my: 4 }}>
                 <Grid item><Typography variant='h5'>Admins</Typography></Grid>
                 <Grid item ><Button sx={{ mx: 4 }} variant='contained' onClick={() => navigate('/admin/create')}>ADD</Button></Grid>
