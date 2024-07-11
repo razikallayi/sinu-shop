@@ -25,6 +25,7 @@ import { CreateProduct } from 'pages/admin/products/Create';
 import { EditProduct } from 'pages/admin/products/Edit';
 import { Users } from 'pages/admin/users';
 import 'react-toastify/dist/ReactToastify.css';
+import { EditAdmin } from 'pages/admin/admins/Edit';
 
 function App() {
   const [products, setProducts] = useState()
@@ -90,7 +91,7 @@ function App() {
         <Route path='/admin' element={<AdminLogin />} />
         <Route path='/admins' element={<Admins />} />
         <Route path='/admin/create' element={<CreateAdmin />} />
-        {/* <Route path='/admin/:id' element={<CreateAdmin />} /> */}
+        <Route path='/admin/:id' element={<EditAdmin />} />
 
         <Route path='/dashboard' element={<AdminDashboard />} />
 

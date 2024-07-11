@@ -1,20 +1,15 @@
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import productSample from "assets/product_0.jpg";
 import axios from 'axios';
 import { useAdmin } from 'hooks/useAdmin';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authHeader, getToken } from 'utils/auth';
+import { authHeader } from 'utils/auth';
 import { AdminNavbar } from '../AdminNavbar';
 
 
 export const Admins = () => {
-    const { isLoggedIn } = useAdmin()
+    const { isLoggedIn, user } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -33,13 +28,13 @@ export const Admins = () => {
             setAdmins(response.data)
         })
     }
-    const deleteProduct = (id) => {
-        axios.delete("http://localhost:5000/admin", authHeader(), { data: { id: id } }, ).then(response => {
+    const deleteAdmin = (id) => {
+        axios.delete("http://localhost:5000/admin", { data: { id: id }, ...authHeader() }, ).then(response => {
             getAdmins()
         })
     }
 
-    const editProduct = (id) => {
+    const editAdmin = (id) => {
         navigate(`/admin/${id}`)
     }
 
@@ -69,8 +64,9 @@ export const Admins = () => {
                                 <TableCell component="th" scope="row">{admin.name}</TableCell>
                                 <TableCell component="th" scope="row">{admin.email}</TableCell>
                                 <TableCell component="th" scope="row">
-                                    <Button variant='contained' color='warning' onClick={() => editProduct(admin._id)}>Edit</Button>&nbsp;
-                                    <Button color='error' variant='contained' onClick={() => deleteProduct(admin._id)}>Delete</Button></TableCell>
+                                    <Button variant='contained' color='warning' onClick={() => editAdmin(admin._id)}>Edit</Button>&nbsp;
+                                    {user.email != admin.email && <Button color='error' variant='contained' onClick={() => deleteAdmin(admin._id)}>Delete</Button>}
+                                </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
@@ -79,29 +75,3 @@ export const Admins = () => {
         </>
     )
 }
-
-// export const ProductItem = () => {
-//     return (
-//         <Card sx={{ display: 'flex' }}>
-//             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-//                 <CardContent sx={{ flex: '1 0 auto' }}>
-//                     <Typography component="div" variant="h5">
-//                         Live From Space
-//                     </Typography>
-//                     <Typography variant="subtitle1" color="text.secondary" component="div">
-//                         Mac Miller
-//                     </Typography>
-//                 </CardContent>
-//                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-
-//                 </Box>
-//             </Box>
-//             <CardMedia
-//                 component="img"
-//                 sx={{ width: 151 }}
-//                 image={productSample}
-//                 alt="Live from space album cover"
-//             />
-//         </Card>
-//     )
-// }

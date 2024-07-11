@@ -31,6 +31,7 @@ app.post('/admin/create', adminController.signup)
 app.post('/admin/login', adminController.login)
 app.post('/get-admin', adminController.getAdmin)
 app.delete('/admin', validateAdminToken, adminController.deleteAdmin)
+app.patch('/admin/:id', validateAdminToken, adminController.updateAdmin)
 
 app.get('/users', validateAdminToken, userController.listUsers)
 app.post('/get-user',validateAdminToken, userController.getUser)

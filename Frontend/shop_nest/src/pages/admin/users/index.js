@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authHeader } from 'utils/auth';
 import { AdminNavbar } from '../AdminNavbar';
+import { toast } from 'react-toastify';
 
 
 export const Users = () => {
@@ -18,24 +19,25 @@ export const Users = () => {
 
     const [users, setUsers] = useState()
     useEffect(() => {
-        getAdmins()
+        getUsers()
     }, [])
 
-    const getAdmins = () => {
+    const getUsers = () => {
         axios.get("http://localhost:5000/users",
             authHeader()
         ).then(response => {
             setUsers(response.data)
         })
     }
-    const deleteProduct = (id) => {
-        axios.delete("http://localhost:5000/users",authHeader(), { data: { id: id } }, ).then(response => {
-            getAdmins()
-        })
-    }
 
-    const editProduct = (id) => {
-        // navigate(`/users/${id}`)
+    const deleteUser = (id) => {
+        if(window.confirm("Are you sure want to delete?")){
+            axios.delete("http://localhost:5000/users", { data: { id: id } , ...authHeader() },).then(response => {
+                getUsers()
+            }).catch(e=>{
+                toast(e.response.data.message)
+            })
+        }
     }
 
     return (
@@ -64,8 +66,7 @@ export const Users = () => {
                                 <TableCell component="th" scope="row">{user.username}</TableCell>
                                 <TableCell component="th" scope="row">{user.email}</TableCell>
                                 <TableCell component="th" scope="row">
-                                    <Button variant='contained' color='warning' onClick={() => editProduct(user._id)}>Edit</Button>&nbsp;
-                                    <Button color='error' variant='contained' onClick={() => deleteProduct(user._id)}>Delete</Button></TableCell>
+                                    <Button color='error' variant='contained' onClick={() => deleteUser(user._id)}>Delete</Button></TableCell>
                             </TableRow>
                         )}
                     </TableBody>
@@ -74,29 +75,3 @@ export const Users = () => {
         </>
     )
 }
-
-// export const ProductItem = () => {
-//     return (
-//         <Card sx={{ display: 'flex' }}>
-//             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-//                 <CardContent sx={{ flex: '1 0 auto' }}>
-//                     <Typography component="div" variant="h5">
-//                         Live From Space
-//                     </Typography>
-//                     <Typography variant="subtitle1" color="text.secondary" component="div">
-//                         Mac Miller
-//                     </Typography>
-//                 </CardContent>
-//                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-
-//                 </Box>
-//             </Box>
-//             <CardMedia
-//                 component="img"
-//                 sx={{ width: 151 }}
-//                 image={productSample}
-//                 alt="Live from space album cover"
-//             />
-//         </Card>
-//     )
-// }

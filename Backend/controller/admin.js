@@ -4,9 +4,7 @@ const { generateAccessToken, generateRefreshToken } = require("../utils/auth")
 
 const signup = async (req, res) => {
     const user = req.body
-    console.log(user);
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    console.log(hashedPassword)
     var result = await new adminModel({ ...user, password: hashedPassword })
     if (result.save()) {
         res.status(201).json({ success: true, message: "Registration success" })
@@ -37,7 +35,7 @@ const listAdmins = async (req, res) => {
 }
 
 const getAdmin = async (req, res) => {
-    const result = await adminModel.find(req.body)
+    const result = await adminModel.find(req.body).select('-password')
     res.json(result)
 }
 
@@ -46,11 +44,25 @@ const deleteAdmin = async (req, res) => {
     res.json({ success: true, message: "Delete successfully", data: result })
 }
 
+
+const updateAdmin = async (req, res) => {
+    const id = req.params.id
+    console.log(req.body);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const result = await adminModel.findByIdAndUpdate(id, { ...req.body, password: hashedPassword})
+    if (result.save()) {
+        res.send({ success: true, message: "Updated successfully", data: result })
+    } else {
+        res.send({ success: false, message: "Failed to update" })
+    }
+}
+
 const adminController = {
     signup: signup,
     login: login,
     getAdmin: getAdmin,
     listAdmins: listAdmins,
+    updateAdmin: updateAdmin,
     deleteAdmin: deleteAdmin
 }
 
