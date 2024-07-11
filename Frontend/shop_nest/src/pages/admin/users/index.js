@@ -32,7 +32,7 @@ export const Users = () => {
 
     const deleteUser = (id) => {
         if(window.confirm("Are you sure want to delete?")){
-            axios.delete("http://localhost:5000/users", { data: { id: id } , ...authHeader() },).then(response => {
+            axios.delete("http://localhost:5000/user", { data: { id: id } , ...authHeader() },).then(response => {
                 getUsers()
             }).catch(e=>{
                 toast(e.response.data.message)
